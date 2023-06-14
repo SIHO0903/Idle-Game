@@ -16,6 +16,5 @@ public class BackgroundScrolling : MonoBehaviour
     {
         move += Time.deltaTime;
         material.SetTextureOffset("_MainTex", Vector2.right * move* moveSpeed);
-        Debug.Log(Mathf.FloorToInt(move));
     }
 }

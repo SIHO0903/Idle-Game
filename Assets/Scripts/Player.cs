@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("# Status")]
+    public float damage;
+    public float health;
+    public float healthRecovery;
+    public float criticalChance;
+    public float criticalDamage;
     public float fireRate;
     float curFireRate;
-    public GameObject dagger;
+
+    GameObject dagger;
     void Start()
     {
-        curFireRate= fireRate;
+        curFireRate = fireRate;
     }
 
     void Update()
     {
-        curFireRate-=Time.deltaTime;
-        if (curFireRate <= 0)
+        curFireRate -= Time.deltaTime;
+        if (curFireRate <= 0 && NearestTarget.target != null)
         {
-            Instantiate(dagger,transform.position,Quaternion.identity);
+            dagger = PoolManager.instance.PlayerGet(0);
+            dagger.transform.position = transform.position;
             curFireRate = fireRate;
         }
     }
