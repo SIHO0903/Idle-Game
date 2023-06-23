@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7481518354318646181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.73, y: 5.59, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -151,7 +151,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f2aeeb2642ebe5f43af54de7c94996a4, type: 3}
   - {fileID: 21300000, guid: 55ab31a54d1fea340a28b6c418797b5c, type: 3}
   - {fileID: 21300000, guid: 000a4aa702ce2704f97ce3b87c562868, type: 3}
-  health: 10
-  maxHealth: 10
+  health: 1
+  maxHealth: 1
   damage: 5
   speed: 30
+  coinIndex: 0

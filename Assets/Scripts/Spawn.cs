@@ -7,7 +7,6 @@ public class Spawn : MonoBehaviour
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] float spawnTime;
     float curspawnTime;
-    [SerializeField] bool isSpawn;
 
     GameObject enemy;
     void Start()
@@ -20,7 +19,7 @@ public class Spawn : MonoBehaviour
         if(curspawnTime < 0)
         {
             enemy = PoolManager.instance.EnemyGet(Random.Range(0, 9));
-            enemy.transform.position = spawnPoints[Random.Range(0, 4)].position;
+            enemy.transform.position = spawnPoints[Random.Range(0, 3)].position;
 
             curspawnTime = spawnTime;
         }

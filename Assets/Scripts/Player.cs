@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public float criticalChance;
     public float criticalDamage;
     public float fireRate;
-    float curFireRate;
+    public float curFireRate;
 
     GameObject dagger;
     void Start()

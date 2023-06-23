@@ -45,6 +45,15 @@ public class Ability : MonoBehaviour
     {
         if (isClick)
             BtnClickEffect();
+
+        if (cost > GameManager.instance.coin)
+        {
+            btn.interactable = false;
+        }
+        else
+        {
+            btn.interactable = true;
+        }
     }
 
     // 버튼 꾹눌렀을때 자동으로 빠르게 업그레이드되게 하기
@@ -62,12 +71,16 @@ public class Ability : MonoBehaviour
     }
     void CommonUp()
     {
+        GameManager.instance.coin -= Mathf.RoundToInt(cost);
+            
         lvl++;
         lvlTxt.text = "Lv." + lvl;
+
         if (cost >= 100)
             cost += cost * costWeight;
         else
             cost += 5;
+
         cost = Mathf.Round(cost);
         btnTxt.text = "강화\n" + cost;
 
@@ -88,6 +101,7 @@ public class Ability : MonoBehaviour
 
     public void BtnDamage()
     {
+
         CommonUp();
         GameManager.instance.player.damage += upgradeAmnt;
     }
@@ -100,6 +114,11 @@ public class Ability : MonoBehaviour
     {
         CommonUp();
         GameManager.instance.player.healthRecovery += upgradeAmnt;
+    }
+    public void BtnAttackSpeed()
+    {
+        CommonUp();
+        GameManager.instance.player.fireRate -= upgradeAmnt;
     }
     public void BtnCriticalChance()
     {
