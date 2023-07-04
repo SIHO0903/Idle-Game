@@ -85,7 +85,8 @@ public class Ability : MonoBehaviour
         btnTxt.text = "°­È­\n" + cost;
 
         totalUpgradeAmnt += upgradeAmnt;
-        totalUpgradeAmnt = Mathf.Round(totalUpgradeAmnt * 10) / 10f;
+        totalUpgradeAmnt = Mathf.Round(totalUpgradeAmnt * 10000) / 10000f;
+
         if(isPercent)
             amntTxt.text = totalUpgradeAmnt + "%";
         else

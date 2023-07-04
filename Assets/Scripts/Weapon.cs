@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour
     private void OnEnable()
     {
         rigid.velocity = Vector2.zero;
-        damage = GameManager.instance.player.damage;
+        damage = GameManager.instance.player.endDamage;
         playerPos = GameManager.instance.player.transform.position;
         target = NearestTarget.target.transform.position;
         dirVec = (target - playerPos).normalized;

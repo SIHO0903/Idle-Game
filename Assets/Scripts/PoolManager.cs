@@ -14,6 +14,9 @@ public class PoolManager : MonoBehaviour
 
     public GameObject[] enemyPrefabs;
     List<GameObject>[] enemyPools;
+
+    public GameObject[] bossPrefabs;
+    List<GameObject>[] bossPools;
     private void Awake()
     {
         instance = this;
@@ -26,13 +29,18 @@ public class PoolManager : MonoBehaviour
             playerPools[i] = new List<GameObject>();
         }
 
-        //프리팹의 길이에 따라 List선언
         enemyPools = new List<GameObject>[enemyPrefabs.Length];
 
-        //List 초기화
         for (int i = 0; i < enemyPools.Length; i++)
         {
             enemyPools[i] = new List<GameObject>();
+        }
+
+        bossPools = new List<GameObject>[bossPrefabs.Length];
+
+        for (int i = 0; i < bossPools.Length; i++)
+        {
+            bossPools[i] = new List<GameObject>();
         }
     }
     public GameObject PlayerGet(int index)
@@ -80,6 +88,30 @@ public class PoolManager : MonoBehaviour
 
             select = Instantiate(enemyPrefabs[index], transform);
             enemyPools[index].Add(select);
+        }
+
+        return select;
+    }
+
+    public GameObject BossGet(int index)
+    {
+        GameObject select = null;
+
+        foreach (GameObject item in bossPools[index])
+        {
+            if (!item.activeSelf)
+            {
+                select = item;
+                select.SetActive(true);
+                break;
+            }
+        }
+
+        if (!select)
+        {
+
+            select = Instantiate(bossPrefabs[index], transform);
+            bossPools[index].Add(select);
         }
 
         return select;

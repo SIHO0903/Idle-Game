@@ -5,22 +5,25 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] Sprite[] enemySprites;
-    [SerializeField] float health;
+    [Header("# Status")]
+    public float health;
     [SerializeField] float maxHealth;
-    [SerializeField] float damage;
-    [SerializeField] float speed;
-
+    public float damage;
+    public float speed;
+    float curAttackRate;
+    [SerializeField] float attackRate;
+    [HideInInspector] public bool isBoss;
     Vector2 dirVec;
-    GameObject coinObject;
-    [SerializeField] int coinCount;
-    int curCoinCount=0;
+
     Rigidbody2D rigid;
 
-
+    CoinDrop coinDrop;
+    HealthBar healthBar;
     private void Awake()
     {
         rigid= GetComponent<Rigidbody2D>();
-
+        coinDrop = GetComponent<CoinDrop>();
+        healthBar = GetComponentInChildren<HealthBar>();
     }
     void Start()
     {
@@ -28,24 +31,24 @@ public class Enemy : MonoBehaviour
     }
     private void OnEnable()
     {
-        curCoinCount= 0;
         health = maxHealth;
-        coinCount = Random.Range(2, 4);
+        speed = 30;
     }
     void Update()
     {
         rigid.velocity = dirVec * speed * Time.deltaTime;
+        healthBar.HealthBarUpdate(health, maxHealth);
 
-    }
-    void CoinPopUp()
-    {
-        coinObject = PoolManager.instance.PlayerGet(1);
-        coinObject.transform.position = transform.position;
-        curCoinCount++;
-        if (curCoinCount >= coinCount)
-            CancelInvoke("CoinPopUp");
+        if(!GameManager.instance.player.gameObject.activeSelf)
+        {
+            gameObject.SetActive(false);
+        }
 
+        if (!isBoss)
+            curAttackRate -= Time.deltaTime;
     }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Weapon"))
@@ -55,8 +58,23 @@ public class Enemy : MonoBehaviour
 
             if (health <= 0)
             {
-                InvokeRepeating("CoinPopUp", 0f, 0.1f);
+                GameManager.instance.killCount++;
+                coinDrop.InvokeRepeatingCoinDrop();
                 gameObject.SetActive(false);
+            }
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            if (isBoss)
+                return;
+
+            if (curAttackRate < 0)
+            {
+                GameManager.instance.player.health -= damage;
+                curAttackRate = attackRate;
             }
         }
     }
