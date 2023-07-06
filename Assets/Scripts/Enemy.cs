@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] Sprite[] enemySprites;
     [Header("# Status")]
     public float health;
     [SerializeField] float maxHealth;
@@ -55,6 +54,7 @@ public class Enemy : MonoBehaviour
         {
             collision.gameObject.SetActive(false);
             health -= collision.GetComponent<Weapon>().damage;
+            DamageText.Create(transform.position, collision.GetComponent<Weapon>().damage);
 
             if (health <= 0)
             {
@@ -74,6 +74,7 @@ public class Enemy : MonoBehaviour
             if (curAttackRate < 0)
             {
                 GameManager.instance.player.health -= damage;
+                DamageText.Create(collision.transform.position, damage);
                 curAttackRate = attackRate;
             }
         }
