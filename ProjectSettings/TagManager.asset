@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Border
   - Weapon
+  - MenuPopUp
   layers:
   - Default
   - TransparentFX
@@ -45,4 +46,7 @@ TagManager:
     locked: 0
   - name: Background
     uniqueID: 465947079
+    locked: 0
+  - name: MenuPopUp
+    uniqueID: 3084863153
     locked: 0

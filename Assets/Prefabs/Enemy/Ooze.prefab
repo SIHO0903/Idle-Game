@@ -148,11 +148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c429b82f9533c94f9620d283e7396e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySprites:
-  - {fileID: 21300000, guid: 55f0cfdbe2befee40beec14a5eb18fbc, type: 3}
-  - {fileID: 21300000, guid: f9a60b90a6c0d6a4f86694a503171704, type: 3}
-  - {fileID: 21300000, guid: d280dad0830093142b2013dcfee178a7, type: 3}
-  - {fileID: 21300000, guid: d74318faccd3cfd4792a285e705fc5c5, type: 3}
   health: 0
   maxHealth: 10
   damage: 5
@@ -324,7 +319,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 429, y: 905}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5114548033312188709
 Canvas:

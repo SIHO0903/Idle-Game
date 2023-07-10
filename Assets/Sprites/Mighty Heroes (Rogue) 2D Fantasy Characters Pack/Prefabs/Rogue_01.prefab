@@ -185,6 +185,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c5bd3a5c8e70f844ba2db5c279c6439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layer:
+    serializedVersion: 2
+    m_Bits: 0
+  radius: 0
 --- !u!114 &6416407589088776270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,9 +201,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85938452dc5fbcb419db1f641222c320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
+  endDamage: 0
+  health: 0
+  maxHealth: 0
+  healthRecovery: 0
+  healthRecoveryRate: 0
+  criticalChance: 0
+  criticalDamage: 0
   fireRate: 0
   curFireRate: 0
-  dagger: {fileID: 0}
+  isLive: 1
 --- !u!1 &1000010251440012
 GameObject:
   m_ObjectHideFlags: 0

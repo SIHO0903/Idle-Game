@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public float curFireRate;
     public bool isLive=true;
 
+    public Vector3 playerPos;
     float randCritical;
     GameObject dagger;
     Animator anim;
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
     }
     void Start()
     {
+        playerPos = new Vector3(transform.position.x, transform.position.y, 0);
         curFireRate = fireRate;
         health = maxHealth;
     }
@@ -63,7 +65,7 @@ public class Player : MonoBehaviour
         {
             CriticalHit();
             dagger = PoolManager.instance.PlayerGet(0);
-            dagger.transform.position = transform.position;
+            dagger.transform.position = playerPos;
             curFireRate = fireRate;
         }
     }

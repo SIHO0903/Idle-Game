@@ -19,7 +19,7 @@ public class Weapon : MonoBehaviour
     {
         rigid.velocity = Vector2.zero;
         damage = GameManager.instance.player.endDamage;
-        playerPos = GameManager.instance.player.transform.position;
+        playerPos = GameManager.instance.player.playerPos;
         target = NearestTarget.target.transform.position;
         dirVec = (target - playerPos).normalized;
     }
