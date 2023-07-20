@@ -33,7 +33,7 @@ public class DamageText : MonoBehaviour
     }
     public static DamageText Create(Vector2 pos, float damage)
     {
-        GameObject damageTextObj = PoolManager.instance.PlayerGet(3);
+        GameObject damageTextObj = PoolManager.instance.Get(PoolManager.PrefabType.Player, 3);
         DamageText damageText = damageTextObj.GetComponent<DamageText>();
         damageTextObj.transform.position = pos + Vector2.up * 1f;
         damageText.SetUp(damage);

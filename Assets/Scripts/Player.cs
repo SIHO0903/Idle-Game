@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
         if (curFireRate <= 0 && NearestTarget.target != null)
         {
             CriticalHit();
-            dagger = PoolManager.instance.PlayerGet(0);
+            dagger = PoolManager.instance.Get(PoolManager.PrefabType.Player, 0);
             dagger.transform.position = playerPos;
             curFireRate = fireRate;
         }

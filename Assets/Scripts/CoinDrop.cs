@@ -16,7 +16,7 @@ public class CoinDrop : MonoBehaviour
     }
     void CoinPopUp()
     {
-        coinObject = PoolManager.instance.PlayerGet(1);
+        coinObject = PoolManager.instance.Get(PoolManager.PrefabType.Player, 1);
         coinObject.transform.position = transform.position;
         curCoinCount++;
         if (curCoinCount >= coinCount)

@@ -96,7 +96,9 @@ public class Spawn : MonoBehaviour
         if (curspawnTime < 0 && curSpawnCount != spawnCount && !isBoss)
         {
 
-            enemy[curSpawnCount] = PoolManager.instance.EnemyGet(Random.Range(0, 9));
+            //enemy[curSpawnCount] = PoolManager.instance.EnemyGet(Random.Range(0, 9));
+            enemy[curSpawnCount] = PoolManager.instance.Get(PoolManager.PrefabType.Enemy, Random.Range(0, 9));
+
             enemy[curSpawnCount].transform.position = spawnPoints[Random.Range(0, 3)].position;
 
             curspawnTime = spawnTime;
@@ -135,7 +137,7 @@ public class Spawn : MonoBehaviour
             enemy[i].gameObject.SetActive(false);
         }
 
-        boss = PoolManager.instance.BossGet(0);
+        boss = PoolManager.instance.Get(PoolManager.PrefabType.Boss,0);
         boss.transform.position = spawnPoints[0].position;
 
         bossRetryBtn.SetActive(false);

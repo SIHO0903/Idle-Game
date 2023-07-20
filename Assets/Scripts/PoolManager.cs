@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 //오브젝트 풀링
@@ -8,47 +10,40 @@ public class PoolManager : MonoBehaviour
 {
     public static PoolManager instance;
 
-    //프리팹 저장
-    public GameObject[] playerPrefabs;
-    List<GameObject>[] playerPools;
+    public enum PrefabType { Player,Enemy,Boss,Weapon,Defense,Gloves,Ring }
+    PrefabType prefabType;
 
-    public GameObject[] enemyPrefabs;
-    List<GameObject>[] enemyPools;
 
-    public GameObject[] bossPrefabs;
-    List<GameObject>[] bossPools;
+    [System.Serializable]
+    public struct PrefabPoolData
+    {
+        public GameObject[] prefabs;
+        public List<GameObject>[] pools;
+    }
+    public List<PrefabPoolData> testPrefabs;
     private void Awake()
     {
         instance = this;
-        //프리팹의 길이에 따라 List선언
-        playerPools = new List<GameObject>[playerPrefabs.Length];
-
-        //List 초기화
-        for (int i = 0; i < playerPools.Length; i++)
+        for (int dataIdx = 0; dataIdx < testPrefabs.Count; dataIdx++)
         {
-            playerPools[i] = new List<GameObject>();
-        }
+            PrefabPoolData poolData = testPrefabs[dataIdx];
+            poolData.pools = new List<GameObject>[poolData.prefabs.Length];
 
-        enemyPools = new List<GameObject>[enemyPrefabs.Length];
 
-        for (int i = 0; i < enemyPools.Length; i++)
-        {
-            enemyPools[i] = new List<GameObject>();
-        }
+            for (int i = 0; i < poolData.pools.Length; i++)
+            {
+                poolData.pools[i] = new List<GameObject>();
+            }
 
-        bossPools = new List<GameObject>[bossPrefabs.Length];
-
-        for (int i = 0; i < bossPools.Length; i++)
-        {
-            bossPools[i] = new List<GameObject>();
+            testPrefabs[dataIdx] = poolData; 
         }
     }
-    public GameObject PlayerGet(int index)
-    {
+    public GameObject Get(PrefabType prefabTypes, int index)
+    {   
         GameObject select = null;
 
         //index해당하는 프리팹 비활성화시 활성화로 전환
-        foreach (GameObject item in playerPools[index])
+        foreach (GameObject item in testPrefabs[(int)prefabTypes].pools[index])
         {
             if (!item.activeSelf)
             {
@@ -61,59 +56,11 @@ public class PoolManager : MonoBehaviour
         if (!select)
         {
 
-            select = Instantiate(playerPrefabs[index], transform);
-            playerPools[index].Add(select);
+            select = Instantiate(testPrefabs[(int)prefabTypes].prefabs[index], transform);
+            testPrefabs[(int)prefabTypes].pools[index].Add(select);
         }
 
         return select;
     }
 
-    public GameObject EnemyGet(int index)
-    {
-        GameObject select = null;
-
-        //index해당하는 프리팹 비활성화시 활성화로 전환
-        foreach (GameObject item in enemyPools[index])
-        {
-            if (!item.activeSelf)
-            {
-                select = item;
-                select.SetActive(true);
-                break;
-            }
-        }
-        // 프리팹이 전부 활성화상태일시 새로 생성후 리스트에 추가
-        if (!select)
-        {
-
-            select = Instantiate(enemyPrefabs[index], transform);
-            enemyPools[index].Add(select);
-        }
-
-        return select;
-    }
-
-    public GameObject BossGet(int index)
-    {
-        GameObject select = null;
-
-        foreach (GameObject item in bossPools[index])
-        {
-            if (!item.activeSelf)
-            {
-                select = item;
-                select.SetActive(true);
-                break;
-            }
-        }
-
-        if (!select)
-        {
-
-            select = Instantiate(bossPrefabs[index], transform);
-            bossPools[index].Add(select);
-        }
-
-        return select;
-    }
 }
