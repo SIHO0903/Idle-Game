@@ -31,20 +31,33 @@ public class EquipmentEnum : MonoBehaviour
 
     public enum DefenseName
     {
-        aa,
-        bb
+        BanditArmor,
+        BattleArmor,
+        DarkMountainArmor,
+        GeryKnightArmor,
+        ManticoreArmor,
+        NewbieArmor,
+        RoyalTunicArmor
     };
 
     public enum GlovesName
     {
-        cc,
-        dd
+        BanditGloves,
+        BattleGloves,
+        DarkMountainGloves,
+        GeryKnightGloves,
+        ManticoreGloves,
+        NewbieGloves
     };
 
     public enum RingName
     {
-        ee,
-        ff
+        BronzeRing,
+        SliverRing,
+        GoldenRing,
+        MagicBronzeRing,
+        MagicSilverRing,
+        MagicGoldenRing
     };
 
     public EquipType equipType;

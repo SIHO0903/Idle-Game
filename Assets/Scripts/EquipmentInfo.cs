@@ -5,11 +5,9 @@ using UnityEngine;
 
 public class EquipmentInfo : EquipmentEnum
 {
-    [SerializeField] float mountingEffect;
-    [SerializeField] float mountingIncrement;
-    [SerializeField] float retentionEffect;
-    [SerializeField] float retentionIncrement;
-
-
+    public float mountingEffect;
+    public float mountingIncrement;
+    public float retentionEffect;
+    public float retentionIncrement;
 
 }

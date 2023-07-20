@@ -510,8 +510,10 @@ MonoBehaviour:
   defenseName: 0
   glovesName: 0
   ringName: 0
-  mountingEffect: 0
-  retentionEffect: 0
+  mountingEffect: 50
+  mountingIncrement: 100
+  retentionEffect: 10
+  retentionIncrement: 20
 --- !u!1 &7456370449477171372
 GameObject:
   m_ObjectHideFlags: 0
