@@ -510,6 +510,8 @@ MonoBehaviour:
   defenseName: 0
   glovesName: 0
   ringName: 0
+  image: {fileID: 0}
+  rarity: common
   mountingEffect: 15
   mountingIncrement: 30
   retentionEffect: 1.5

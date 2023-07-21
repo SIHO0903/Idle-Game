@@ -24,6 +24,8 @@ public class EquipmentInfoInspector : Editor
     SerializedProperty glovesNameProperty;
     SerializedProperty ringNameProperty;
 
+    SerializedProperty rarity;
+    SerializedProperty itemColor;
     SerializedProperty mountingEffect;
     SerializedProperty mountingIncrement;
     SerializedProperty retentionEffect;
@@ -45,6 +47,8 @@ public class EquipmentInfoInspector : Editor
         glovesNameProperty = serializedObject.FindProperty("glovesName");
         ringNameProperty = serializedObject.FindProperty("ringName");
 
+        rarity = serializedObject.FindProperty("rarity");
+        itemColor = serializedObject.FindProperty("image");
         mountingEffect = serializedObject.FindProperty("mountingEffect");
         mountingIncrement = serializedObject.FindProperty("mountingIncrement");
         retentionEffect = serializedObject.FindProperty("retentionEffect");
@@ -107,6 +111,7 @@ public class EquipmentInfoInspector : Editor
 
         }
 
+
         for (int i = 0; i < equipDatas.Length; i++)
         {
 
@@ -141,6 +146,7 @@ public class EquipmentInfoInspector : Editor
     }
     void Init(int i)
     {
+        rarity.stringValue = equipDatas[i].rarity;
         mountingEffect.floatValue = equipDatas[i].mountingEffect;
         mountingIncrement.floatValue = equipDatas[i].mountingIncrement;
         retentionEffect.floatValue = equipDatas[i].retentionEffect;

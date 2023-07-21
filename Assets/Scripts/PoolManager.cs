@@ -20,13 +20,13 @@ public class PoolManager : MonoBehaviour
         public GameObject[] prefabs;
         public List<GameObject>[] pools;
     }
-    public List<PrefabPoolData> testPrefabs;
+    public List<PrefabPoolData> prefabDatas;
     private void Awake()
     {
         instance = this;
-        for (int dataIdx = 0; dataIdx < testPrefabs.Count; dataIdx++)
+        for (int dataIdx = 0; dataIdx < prefabDatas.Count; dataIdx++)
         {
-            PrefabPoolData poolData = testPrefabs[dataIdx];
+            PrefabPoolData poolData = prefabDatas[dataIdx];
             poolData.pools = new List<GameObject>[poolData.prefabs.Length];
 
 
@@ -35,15 +35,18 @@ public class PoolManager : MonoBehaviour
                 poolData.pools[i] = new List<GameObject>();
             }
 
-            testPrefabs[dataIdx] = poolData; 
+            prefabDatas[dataIdx] = poolData; 
         }
     }
-    public GameObject Get(PrefabType prefabTypes, int index)
+    public GameObject Get(PrefabType prefabTypes, int index, Transform transform=null)
     {   
         GameObject select = null;
 
+        if (transform == null)
+            transform = this.transform;
+
         //index해당하는 프리팹 비활성화시 활성화로 전환
-        foreach (GameObject item in testPrefabs[(int)prefabTypes].pools[index])
+        foreach (GameObject item in prefabDatas[(int)prefabTypes].pools[index])
         {
             if (!item.activeSelf)
             {
@@ -55,9 +58,8 @@ public class PoolManager : MonoBehaviour
         // 프리팹이 전부 활성화상태일시 새로 생성후 리스트에 추가
         if (!select)
         {
-
-            select = Instantiate(testPrefabs[(int)prefabTypes].prefabs[index], transform);
-            testPrefabs[(int)prefabTypes].pools[index].Add(select);
+            select = Instantiate(prefabDatas[(int)prefabTypes].prefabs[index], transform);
+            prefabDatas[(int)prefabTypes].pools[index].Add(select);
         }
 
         return select;

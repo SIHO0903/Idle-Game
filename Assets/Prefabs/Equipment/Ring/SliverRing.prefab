@@ -510,6 +510,7 @@ MonoBehaviour:
   defenseName: 0
   glovesName: 0
   ringName: 1
+  rarity: uncommon
   mountingEffect: 80
   mountingIncrement: 170
   retentionEffect: 30
