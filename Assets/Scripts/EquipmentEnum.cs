@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class EquipmentEnum : MonoBehaviour
 {
-    public enum EquipType 
-    { 
+    public enum EquipType
+    {
+        None,
         Weapon, 
         Defense, 
         Gloves, 
@@ -15,6 +16,7 @@ public class EquipmentEnum : MonoBehaviour
 
     public enum WeaponName
     {
+        None,
         AssassinDagger,
         BalancedSword,
         BronzeDagger,
@@ -31,6 +33,7 @@ public class EquipmentEnum : MonoBehaviour
 
     public enum DefenseName
     {
+        None,
         BanditArmor,
         BattleArmor,
         DarkMountainArmor,
@@ -42,6 +45,7 @@ public class EquipmentEnum : MonoBehaviour
 
     public enum GlovesName
     {
+        None,
         BanditGloves,
         BattleGloves,
         DarkMountainGloves,
@@ -52,6 +56,7 @@ public class EquipmentEnum : MonoBehaviour
 
     public enum RingName
     {
+        None,
         BronzeRing,
         SliverRing,
         GoldenRing,

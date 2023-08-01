@@ -25,7 +25,6 @@ public class EquipmentInfoInspector : Editor
     SerializedProperty ringNameProperty;
 
     SerializedProperty rarity;
-    SerializedProperty itemColor;
     SerializedProperty mountingEffect;
     SerializedProperty mountingIncrement;
     SerializedProperty retentionEffect;
@@ -39,6 +38,8 @@ public class EquipmentInfoInspector : Editor
     public override async void  OnInspectorGUI()
     {
         base.OnInspectorGUI();
+
+
         serializedObject.Update();
 
         equipTypeProperty = serializedObject.FindProperty("equipType");
@@ -48,39 +49,44 @@ public class EquipmentInfoInspector : Editor
         ringNameProperty = serializedObject.FindProperty("ringName");
 
         rarity = serializedObject.FindProperty("rarity");
-        itemColor = serializedObject.FindProperty("image");
         mountingEffect = serializedObject.FindProperty("mountingEffect");
         mountingIncrement = serializedObject.FindProperty("mountingIncrement");
         retentionEffect = serializedObject.FindProperty("retentionEffect");
         retentionIncrement = serializedObject.FindProperty("retentionIncrement");
 
-
         switch (equipTypeProperty.enumValueFlag)
         {
             case 0:
-                EditorGUILayout.PropertyField(weaponNameProperty);
+                HideProperty(weaponNameProperty);
                 HideProperty(defenseNameProperty);
                 HideProperty(glovesNameProperty);
                 HideProperty(ringNameProperty);
                 break;
             case 1:
+                EditorGUILayout.PropertyField(weaponNameProperty);
+                HideProperty(defenseNameProperty);
+                HideProperty(glovesNameProperty);
+                HideProperty(ringNameProperty);
+                break;
+            case 2:
                 EditorGUILayout.PropertyField(defenseNameProperty);
                 HideProperty(weaponNameProperty);
                 HideProperty(glovesNameProperty);
                 HideProperty(ringNameProperty);
                 break;
-            case 2:
+            case 3:
                 EditorGUILayout.PropertyField(glovesNameProperty);
                 HideProperty(weaponNameProperty);
                 HideProperty(defenseNameProperty);
                 HideProperty(ringNameProperty);
                 break;
-            case 3:
+            case 4:
                 EditorGUILayout.PropertyField(ringNameProperty);
                 HideProperty(weaponNameProperty);
                 HideProperty(defenseNameProperty);
                 HideProperty(glovesNameProperty);
                 break;
+
         }
 
         if (txt == null)
@@ -104,8 +110,8 @@ public class EquipmentInfoInspector : Editor
                 equipDatas[i].equipName = row[1];
                 equipDatas[i].rarity = row[2];
                 equipDatas[i].mountingEffect = float.Parse(row[3]);
-                equipDatas[i].mountingIncrement = float.Parse(row[4]);
-                equipDatas[i].retentionEffect = float.Parse(row[5]);
+                equipDatas[i].retentionEffect = float.Parse(row[4]);
+                equipDatas[i].mountingIncrement = float.Parse(row[5]);
                 equipDatas[i].retentionIncrement = float.Parse(row[6]);
             }
 
@@ -114,10 +120,8 @@ public class EquipmentInfoInspector : Editor
 
         for (int i = 0; i < equipDatas.Length; i++)
         {
-
             if(equipTypeProperty.enumNames[equipTypeProperty.enumValueFlag] == equipDatas[i].equipType)
             {
-
                 if (weaponNameProperty.enumNames[weaponNameProperty.enumValueFlag] == equipDatas[i].equipName)
                 {
                     Init(i);

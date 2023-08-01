@@ -505,13 +505,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 849560bfc82e0544a9b94c2658b45a75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipType: 0
-  weaponName: 4
+  equipType: 1
+  weaponName: 5
   defenseName: 0
   glovesName: 0
   ringName: 0
-  image: {fileID: 0}
   rarity: uncommon
+  level: 0
+  curAmount: 0
   mountingEffect: 80
   mountingIncrement: 170
   retentionEffect: 30

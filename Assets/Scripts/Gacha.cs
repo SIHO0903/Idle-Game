@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,9 +15,11 @@ public class Gacha : MonoBehaviour
 
     GameObject[] items = new GameObject[20];
 
+    float[] weights = new float[5] { 1, 4, 15, 30, 50 };
+    string pickedRarity;
     private void Awake()
     {
-        btn= GetComponent<Button>();
+        btn = GetComponent<Button>();
         itemGridLayout = gaChaingUI.transform.GetChild(0).gameObject;
 
     }
@@ -23,10 +27,10 @@ public class Gacha : MonoBehaviour
     {
         if (!isfreeGacha)
         {
-            if (GameManager.instance.gem>=1500)
+            if (GameManager.instance.gem >= 1500)
                 GameManager.instance.gem -= 1500;
             else
-                btn.interactable= false;   
+                btn.interactable = false;
         }
         //무료가챠는 하루에 2번만 할수잇게
 
@@ -46,18 +50,49 @@ public class Gacha : MonoBehaviour
         }
 
         System.Array.Clear(items, 0, items.Length);
-        //가중치계산후 아이템 20개생성
-        for (int i = 0; i < 20; i++)
+
+        for (int i = 0; i < items.Length; i++)
         {
+            float curWeight = 0;
+            float randomValue = UnityEngine.Random.Range(1, 101);
+            for (int j = 0; j < weights.Length; j++)
+            {
+                curWeight += weights[j];
+                if (randomValue <= curWeight)
+                {
+                    switch (j)
+                    {
+                        case 0:
+                            pickedRarity = "Legendary";
+                            break;
+                        case 1:
+                            pickedRarity = "Unique";
+                            break;
+                        case 2:
+                            pickedRarity = "Rare";
+ 
+                            break;
+                        case 3:
+                            pickedRarity = "Uncommon";
+                            break;
+                        case 4:
+                            pickedRarity = "Common";
+                            break;
+                    }
+                    break;
+                }
+            }
+            PoolManager.PrefabType prefabType;
 
-            items[i] = PoolManager.instance.Get(PoolManager.PrefabType.Weapon, 
-                Random.Range(0, PoolManager.instance.prefabDatas[(int)PoolManager.PrefabType.Weapon].pools.Length),itemGridLayout.transform);
-            
-            items[i].transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
-            items[i].transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+            if (Enum.TryParse(pickedRarity, out prefabType))
+            {
+                items[i] = PoolManager.instance.Get(prefabType, UnityEngine.Random.Range(0, PoolManager.instance.prefabDatas[(int)prefabType].pools.Length), itemGridLayout.transform);
+                items[i].transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
+                items[i].transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
+                items[i].transform.position = itemGridLayout.transform.position;
 
-            items[i].transform.position = itemGridLayout.transform.position;
-            //items[i].GetComponent<EquipmentInfo>().rarity
+                //items[i].GetComponent<EquipmentInfo>().
+            }
         }
 
     }

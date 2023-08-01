@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     public int mainStage;
     public int subStage;
 
+
+
     WaitForSeconds playerReviveDelay;
     void Awake()
     {
@@ -47,6 +49,8 @@ public class GameManager : MonoBehaviour
         }
 
         StartCoroutine(PlayerRevive());
+
+
     }
 
     public IEnumerator PlayerRevive()

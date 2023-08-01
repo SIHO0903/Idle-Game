@@ -10,8 +10,7 @@ public class PoolManager : MonoBehaviour
 {
     public static PoolManager instance;
 
-    public enum PrefabType { Player,Enemy,Boss,Weapon,Defense,Gloves,Ring }
-    PrefabType prefabType;
+    public enum PrefabType { Player,Enemy,Boss,Common,Uncommon,Rare,Unique,Legendary}
 
 
     [System.Serializable]

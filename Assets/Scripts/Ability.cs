@@ -109,7 +109,7 @@ public class Ability : MonoBehaviour
     public void BtnHealth()
     {
         CommonUp();
-        GameManager.instance.player.health += upgradeAmnt;
+        GameManager.instance.player.baseHealth += upgradeAmnt;
     }
     public void BtnHealthRecovery()
     {

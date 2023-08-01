@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float damage;
     public float endDamage;
     public float health;
+    public float baseHealth;
     public float maxHealth;
     public float healthRecovery;
     [SerializeField] float healthRecoveryRate;
@@ -24,6 +25,16 @@ public class Player : MonoBehaviour
     Animator anim;
     HealthBar healthBar;
 
+     public float mountingDamage1;
+     public float mountingDamage2;
+     public float retentionDamage1;
+     public float retentionDamage2;
+
+     public float mountingHealth1;
+     public float mountingHealth2;
+     public float retentionHealth1;
+     public float retentionHealth2;
+
     private void Awake()
     {
         anim = GetComponentInChildren<Animator>();
@@ -33,7 +44,9 @@ public class Player : MonoBehaviour
     {
         playerPos = new Vector3(transform.position.x, transform.position.y, 0);
         curFireRate = fireRate;
+        baseHealth = health;
         health = maxHealth;
+        endDamage = damage;
     }
 
     void Update()
@@ -43,7 +56,8 @@ public class Player : MonoBehaviour
         HealthRecovery();
         Dead();
         healthBar.HealthBarUpdate(health, maxHealth);
-
+        DamageUpdate();
+        HealthUpdate();
     }
 
     void Dead()
@@ -86,13 +100,21 @@ public class Player : MonoBehaviour
         {
             endDamage = damage + damage * criticalDamage;
         }
-        else
-        {
-            endDamage = damage;
-        }
     }
     public void PlayerDamaged()
     {
         anim.SetTrigger("Damaged");
+    }
+    void DamageUpdate()
+    {
+        if ((mountingDamage1 + mountingDamage2 + retentionDamage1 + retentionDamage2) / 100 == 0)
+            return;
+        endDamage = damage * (mountingDamage1+ mountingDamage2+retentionDamage1+retentionDamage2)/100;
+    }
+    void HealthUpdate()
+    {
+        if ((mountingHealth1 + mountingHealth2 + retentionHealth1 + retentionHealth2) / 100 == 0)
+            return;
+        maxHealth = baseHealth * (mountingHealth1+ mountingHealth2+retentionHealth1+retentionHealth2)/100;
     }
 }
