@@ -513,9 +513,10 @@ MonoBehaviour:
   rarity: regendary
   level: 0
   curAmount: 0
+  maxAmount: 5
   mountingEffect: 6000
-  mountingIncrement: 12000
-  retentionEffect: 1200
+  mountingIncrement: 1200
+  retentionEffect: 12000
   retentionIncrement: 2500
 --- !u!1 &7456370449477171372
 GameObject:

@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(PlayerRevive());
 
-
+        gemText.text = gem.ToString();
     }
 
     public IEnumerator PlayerRevive()

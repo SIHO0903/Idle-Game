@@ -24,12 +24,13 @@ public class EquipmentInfo : EquipmentEnum
     private void Awake()
     {
         image = GetComponent<Image>();
-        btn = GetComponent<Button>();
         lvlTxt = transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
         amountSlider = transform.GetChild(0).GetChild(1).GetComponent <Slider>();
         amountSliderTxt = amountSlider.GetComponentInChildren<TextMeshProUGUI>();
         weaponImage = GetComponentsInChildren<Image>()[1];
-
+        btn = GetComponent<Button>();
+        if (btn == null)
+            return;
     }
     private void Start()
     {
@@ -54,6 +55,11 @@ public class EquipmentInfo : EquipmentEnum
     }
     private void LateUpdate()
     {
+        if (btn == null && level == 0)
+        {
+            weaponImage.color = Color.white;
+            return;
+        }
         if (level == 0)
         {
             lvlTxt.gameObject.SetActive(false);

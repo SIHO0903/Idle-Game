@@ -13,24 +13,44 @@ public class Gacha : MonoBehaviour
 
     GameObject itemGridLayout;
 
-    GameObject[] items = new GameObject[20];
+    static GameObject[] items = new GameObject[20];
 
     float[] weights = new float[5] { 1, 4, 15, 30, 50 };
     string pickedRarity;
+
+    int freeGachaChance=2;
     private void Awake()
     {
         btn = GetComponent<Button>();
         itemGridLayout = gaChaingUI.transform.GetChild(0).gameObject;
 
     }
+    private void Update()
+    {
+        if (!isfreeGacha)
+        {
+            if (GameManager.instance.gem < 1500)
+                btn.interactable = false;
+        }
+        else
+        {
+            if (freeGachaChance <= 0)
+                btn.interactable = false;
+        }
+    }
     public void gachaBtn()
     {
+        gaChaingUI.SetActive(false);
+
         if (!isfreeGacha)
         {
             if (GameManager.instance.gem >= 1500)
                 GameManager.instance.gem -= 1500;
-            else
-                btn.interactable = false;
+        }
+        else
+        {
+            if (freeGachaChance > 0)
+                freeGachaChance--;
         }
         //무료가챠는 하루에 2번만 할수잇게
 
@@ -70,7 +90,6 @@ public class Gacha : MonoBehaviour
                             break;
                         case 2:
                             pickedRarity = "Rare";
- 
                             break;
                         case 3:
                             pickedRarity = "Uncommon";
@@ -91,7 +110,7 @@ public class Gacha : MonoBehaviour
                 items[i].transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
                 items[i].transform.position = itemGridLayout.transform.position;
 
-                //items[i].GetComponent<EquipmentInfo>().
+                
             }
         }
 
