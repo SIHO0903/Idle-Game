@@ -19,12 +19,10 @@ public class EquipBtn : MonoBehaviour
 
     public void BtnEquip()
     {
-        Debug.Log("버튼눌림");
         switch (equipmentInfo.equipType)
         {
             case EquipmentEnum.EquipType.Weapon:
                 UIApply((int)EquipmentEnum.EquipType.Weapon);
-                Debug.Log("weapon");
                 break;
             case EquipmentEnum.EquipType.Defense:
                 UIApply((int)EquipmentEnum.EquipType.Defense);

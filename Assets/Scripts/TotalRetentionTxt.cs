@@ -8,15 +8,14 @@ public class TotalRetentionTxt : MonoBehaviour
 {
     [SerializeField] GameObject[] mergeObjects;
     EquipmentInfo[][] equipmentInfos;
-    EquipmentInfo[] equipmentInfo;
+    //EquipmentInfo[] equipmentInfo;
 
     float totalRetention = 0;
     public static float textUpdatefloat = -1;
     string type;
-    TextMeshProUGUI text;
+    [SerializeField] TextMeshProUGUI text;
     private void Awake()
     {
-        text = GetComponent<TextMeshProUGUI>();
         equipmentInfos = new EquipmentInfo[mergeObjects.Length][];
         for (int i = 0; i < mergeObjects.Length; i++)
         {
@@ -25,50 +24,78 @@ public class TotalRetentionTxt : MonoBehaviour
     }
     private void OnEnable()
     {
-        totalRetention = 0;
+        Temp();
+
     }
     private void Update()
+    {
+        Temp();
+        Temp2();
+    }
+    public void Temp()
     {
         if (textUpdatefloat != totalRetention)
         {
             totalRetention = 0;
             for (int i = 0; i < mergeObjects.Length; i++)
             {
-                if (equipmentInfos[i][0].transform.parent.gameObject.activeSelf)
+                for (int j = 0; j < equipmentInfos[i].Length; j++)
                 {
-                    equipmentInfo = equipmentInfos[i];
-                }
-            }
-            for (int i = 0; i < equipmentInfo.Length; i++)
-            {
-                if (equipmentInfo[i].level==0)
-                    continue;
-                totalRetention = totalRetention + equipmentInfo[i].retentionEffect + (equipmentInfo[i].retentionIncrement * equipmentInfo[i].level);
-            }
-            textUpdatefloat = totalRetention;
-            switch (equipmentInfo[0].equipType)
-            {
-                case EquipmentEnum.EquipType.Weapon:
-                    type = "공격력 ";
-                    GameManager.instance.player.retentionDamage1 = totalRetention;
-                    break;
-                case EquipmentEnum.EquipType.Defense:
-                    type = "체력 ";
-                    GameManager.instance.player.retentionHealth1 = totalRetention;
-                    break;
-                case EquipmentEnum.EquipType.Gloves:
-                    type = "체력 ";
-                    GameManager.instance.player.retentionHealth2 = totalRetention;
-                    break;
-                case EquipmentEnum.EquipType.Ring:
-                    type = "공격력 ";
-                    GameManager.instance.player.retentionDamage2 = totalRetention;
-                    break;
-            }
+                    if (equipmentInfos[i][j].level == 0)
+                        continue;
+                    totalRetention = totalRetention + equipmentInfos[i][j].retentionEffect + (equipmentInfos[i][j].retentionIncrement * equipmentInfos[i][j].level);
 
-            text.text = "총 보유효과 : " + type + totalRetention.ToString() + "%";
+                }
+                textUpdatefloat = totalRetention;
+                switch (equipmentInfos[i][0].equipType)
+                {
+                    case EquipmentEnum.EquipType.Weapon:
+                        GameManager.instance.player.retentionDamage1 = totalRetention;
+                        break;
+                    case EquipmentEnum.EquipType.Defense:
+                        GameManager.instance.player.retentionHealth1 = totalRetention;
+                        break;
+                    case EquipmentEnum.EquipType.Gloves:
+                        GameManager.instance.player.retentionHealth2 = totalRetention;
+                        break;
+                    case EquipmentEnum.EquipType.Ring:
+                        GameManager.instance.player.retentionDamage2 = totalRetention;
+                        break;
+                }
+
+                totalRetention = 0;
+            }
         }
 
     }
 
+    private void Temp2()
+    {
+        for (int i = 0; i < mergeObjects.Length; i++)
+        {
+            if (equipmentInfos[i][0].transform.parent.gameObject.activeSelf)
+            {
+                switch (equipmentInfos[i][0].equipType)
+                {
+                    case EquipmentEnum.EquipType.Weapon:
+                        type = "공격력 ";
+                        totalRetention = GameManager.instance.player.retentionDamage1;
+                        break;
+                    case EquipmentEnum.EquipType.Defense:
+                        type = "체력 ";
+                        totalRetention = GameManager.instance.player.retentionHealth1;
+                        break;
+                    case EquipmentEnum.EquipType.Gloves:
+                        type = "체력 ";
+                        totalRetention = GameManager.instance.player.retentionHealth2;
+                        break;
+                    case EquipmentEnum.EquipType.Ring:
+                        type = "공격력 ";
+                        totalRetention = GameManager.instance.player.retentionDamage2;
+                        break;
+                }
+                text.text = "총 보유효과 : " + type + totalRetention.ToString() + "%";
+            }
+        }
+    }
 }

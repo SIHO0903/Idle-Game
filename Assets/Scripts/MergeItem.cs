@@ -25,7 +25,7 @@ public class MergeItem : MonoBehaviour
             eqpTxt.text = equipmentInfo.mountingEffect + (equipmentInfo.mountingEffect * equipmentInfo.level) + "%";
             lvTxt.text = "Lv" + equipmentInfo.level.ToString();
         }
-        TotalRetentionTxt.textUpdatefloat++;
+        TotalRetentionTxt.textUpdatefloat--;
     }
     public void BtnTotalMerge()
     {
@@ -40,6 +40,6 @@ public class MergeItem : MonoBehaviour
                 equipGroupInfo.level += mergeCount;
             }
         }
-        TotalRetentionTxt.textUpdatefloat++;
+        TotalRetentionTxt.textUpdatefloat--;
     }
 }

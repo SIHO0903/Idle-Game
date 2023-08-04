@@ -10,7 +10,6 @@ public class Gacha : MonoBehaviour
     Button btn;
     [SerializeField] GameObject gaChaingUI;
     [SerializeField] bool isfreeGacha;
-
     GameObject itemGridLayout;
 
     static GameObject[] items = new GameObject[20];
@@ -55,6 +54,7 @@ public class Gacha : MonoBehaviour
         //무료가챠는 하루에 2번만 할수잇게
 
         GetGacha();
+        TotalRetentionTxt.textUpdatefloat--;
     }
 
     void GetGacha()
@@ -110,7 +110,6 @@ public class Gacha : MonoBehaviour
                 items[i].transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
                 items[i].transform.position = itemGridLayout.transform.position;
 
-                
             }
         }
 
