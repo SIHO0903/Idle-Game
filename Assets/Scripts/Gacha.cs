@@ -55,6 +55,7 @@ public class Gacha : MonoBehaviour
 
         GetGacha();
         TotalRetentionTxt.textUpdatefloat--;
+
     }
 
     void GetGacha()

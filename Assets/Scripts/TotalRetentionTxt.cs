@@ -24,15 +24,14 @@ public class TotalRetentionTxt : MonoBehaviour
     }
     private void OnEnable()
     {
-        Temp();
-
+        RetentionEffectApply();
     }
     private void Update()
     {
-        Temp();
-        Temp2();
+        RetentionEffectApply();
+        TotalRetentionTxtUpdate();
     }
-    public void Temp()
+    public void RetentionEffectApply()
     {
         if (textUpdatefloat != totalRetention)
         {
@@ -69,7 +68,7 @@ public class TotalRetentionTxt : MonoBehaviour
 
     }
 
-    private void Temp2()
+    private void TotalRetentionTxtUpdate()
     {
         for (int i = 0; i < mergeObjects.Length; i++)
         {

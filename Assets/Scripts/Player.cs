@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     public float criticalDamage;
     public float fireRate;
     public float curFireRate;
-    public bool isLive=true;
+    public bool isLive = true;
 
     public Vector3 playerPos;
     float randCritical;
@@ -25,15 +25,17 @@ public class Player : MonoBehaviour
     Animator anim;
     HealthBar healthBar;
 
-     public float mountingDamage1;
-     public float mountingDamage2;
-     public float retentionDamage1;
-     public float retentionDamage2;
+    public float mountingDamage1;
+    public float mountingDamage2;
+    public float retentionDamage1;
+    public float retentionDamage2;
 
-     public float mountingHealth1;
-     public float mountingHealth2;
-     public float retentionHealth1;
-     public float retentionHealth2;
+    public float mountingHealth1;
+    public float mountingHealth2;
+    public float retentionHealth1;
+    public float retentionHealth2;
+
+    float tempRetentionValue;
 
     private void Awake()
     {
@@ -64,7 +66,7 @@ public class Player : MonoBehaviour
     {
         if (health <= 0)
         {
-            isLive= false;
+            isLive = false;
             gameObject.SetActive(false);
         }
     }
@@ -95,8 +97,9 @@ public class Player : MonoBehaviour
     }
     void CriticalHit()
     {
+        //치명타 이펙트 색상 크기 등등
         randCritical = Random.Range(0f, 1f);
-        if(criticalChance/100 >= randCritical)
+        if (criticalChance / 100 >= randCritical)
         {
             endDamage = damage + damage * criticalDamage;
         }
@@ -108,13 +111,22 @@ public class Player : MonoBehaviour
     void DamageUpdate()
     {
         if ((mountingDamage1 + mountingDamage2 + retentionDamage1 + retentionDamage2) / 100 == 0)
-            return;
-        endDamage = damage * (mountingDamage1+ mountingDamage2+retentionDamage1+retentionDamage2)/100;
+            endDamage = damage;
+        else
+            endDamage = damage * (mountingDamage1 + mountingDamage2 + retentionDamage1 + retentionDamage2) / 100;
     }
     void HealthUpdate()
     {
         if ((mountingHealth1 + mountingHealth2 + retentionHealth1 + retentionHealth2) / 100 == 0)
-            return;
-        maxHealth = baseHealth * (mountingHealth1+ mountingHealth2+retentionHealth1+retentionHealth2)/100;
+            maxHealth = baseHealth;
+        else
+            maxHealth = baseHealth * (mountingHealth1 + mountingHealth2 + retentionHealth1 + retentionHealth2) / 100;
+
+
+        if(tempRetentionValue!=mountingHealth1 + mountingHealth2 + retentionHealth1 + retentionHealth2)
+        {
+            health = maxHealth;
+            tempRetentionValue = mountingHealth1 + mountingHealth2 + retentionHealth1 + retentionHealth2;
+        }
     }
 }
