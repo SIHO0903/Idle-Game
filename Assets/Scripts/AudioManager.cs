@@ -10,11 +10,11 @@ public class AudioManager : MonoBehaviour
     public static AudioManager instance;
     [SerializeField] Slider bgmSlider;
     [SerializeField] Slider sfxSlider;
-    [SerializeField] AudioClip[] bgm;
+    [SerializeField] AudioClip bgm;
     [SerializeField] AudioClip[] sfx;
 
-    enum BGM { Start, InGame, Boss };
-    enum SFX { Dead, Hit0, Hit1, LevelUp, Lose, Range, Select, Win };
+
+    public enum SFX { Attack,Click,Coin,EnemyDead,Gacha,PlayerDead};
     SFX type;
 
     AudioSource[] audioSources;
@@ -27,30 +27,9 @@ public class AudioManager : MonoBehaviour
         audioSources = GetComponents<AudioSource>();
 
     }
-    private void Start()
-    {
-        if (!PlayerPrefs.HasKey("Volumset"))
-            Init();
-        else
-        {
-            bgmSlider.value = PlayerPrefs.GetFloat("bgmVolum");
-            sfxSlider.value = PlayerPrefs.GetFloat("sfxVolum");
-        }
-    }
-    void Init()
-    {
-        PlayerPrefs.SetInt("Volumset", 1);
-        PlayerPrefs.SetFloat("bgmVolum", 1f);
-        PlayerPrefs.SetFloat("sfxVolum", 1f);
-    }
     private void Update()
     {
         VolumSetting(bgmSlider.value, sfxSlider.value);
-    }
-    private void LateUpdate()
-    {
-        PlayerPrefs.SetFloat("bgmVolum", bgmSlider.value);
-        PlayerPrefs.SetFloat("sfxVolum", sfxSlider.value);
     }
 
     private void VolumSetting(float bgm, float sfx)
@@ -61,44 +40,28 @@ public class AudioManager : MonoBehaviour
             audioSources[i].volume = sfx;
         }
     }
-    public void BGMSTART()
+
+    public void BGM()
     {
-        audioSources[0].clip = bgm[(int)BGM.Start];
+        audioSources[0].clip = bgm;
         audioSources[0].Play();
     }
-    public void BGMInGame()
+
+
+    public void SFXPlayer(SFX sfx1,float volum=1)
     {
-        audioSources[0].clip = bgm[(int)BGM.InGame];
-        audioSources[0].Play();
-    }
-    public void BGMBoss()
-    {
-        audioSources[0].clip = bgm[(int)BGM.Boss];
-        audioSources[0].Play();
-    }
-    public void SFXPlayer(string sfxType)
-    {
-        type = (SFX)Enum.Parse(typeof(SFX), sfxType);
         for (int i = 1; i < audioSources.Length; i++)
         {
             if (audioSources[i].isPlaying)
                 continue;
             else
             {
-                audioSources[i].clip = sfx[(int)type];
+                audioSources[i].clip = sfx[(int)sfx1];
+                audioSources[i].volume = volum;
                 audioSources[i].Play();
+
                 return;
             }
         }
-    }
-    public void RandomHitSFX()
-    {
-        int ran = UnityEngine.Random.Range(0, 2);
-        string hit;
-        if (ran == 0)
-            hit = "Hit0";
-        else
-            hit = "Hit1";
-        SFXPlayer(hit);
     }
 }

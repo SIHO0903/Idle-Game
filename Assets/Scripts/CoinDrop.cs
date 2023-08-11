@@ -9,22 +9,30 @@ public class CoinDrop : MonoBehaviour
     [SerializeField] int maxCoin;
     int coinCount;
     int curCoinCount = 0;
+    [SerializeField] bool isGem;
     private void OnEnable()
     {
-        curCoinCount = 0;
         coinCount = Random.Range(minCoin, maxCoin);
     }
     void CoinPopUp()
     {
-        coinObject = PoolManager.instance.Get(PoolManager.PrefabType.Player, 1);
+        if(isGem)
+            coinObject = PoolManager.instance.Get(PoolManager.PrefabType.Player, 2);
+        else
+            coinObject = PoolManager.instance.Get(PoolManager.PrefabType.Player, 1);
+
         coinObject.transform.position = transform.position;
         curCoinCount++;
         if (curCoinCount >= coinCount)
+        {
+            curCoinCount = 0;
             CancelInvoke("CoinPopUp");
+        }
 
     }
     public void InvokeRepeatingCoinDrop()
     {
         InvokeRepeating("CoinPopUp", 0f, 0.1f);
+
     }
 }

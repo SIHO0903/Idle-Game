@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    Rigidbody2D rigid;
+    public Rigidbody2D rigid;
     [SerializeField] float speed;
     public float damage;
     Vector3 target;
@@ -19,7 +19,8 @@ public class Weapon : MonoBehaviour
     {
         rigid.velocity = Vector2.zero;
         damage = GameManager.instance.player.endDamage;
-        playerPos = GameManager.instance.player.playerPos;
+        //playerPos = GameManager.instance.player.playerPos;
+        playerPos = GameManager.instance.player.transform.position;
         target = NearestTarget.target.transform.position;
         dirVec = (target - playerPos).normalized;
     }

@@ -7,6 +7,7 @@ public class MenuBtn : MonoBehaviour
     [SerializeField] GameObject popUpUI;
     public void MenuPopUpBtn()
     {
+        AudioManager.instance.SFXPlayer(AudioManager.SFX.Click);
         if (popUpUI.activeSelf)
             popUpUI.SetActive(false);
         else

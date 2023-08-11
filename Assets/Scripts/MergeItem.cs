@@ -15,7 +15,7 @@ public class MergeItem : MonoBehaviour
 
     public void BtnMerge()
     {
-
+        AudioManager.instance.SFXPlayer(AudioManager.SFX.Click);
         int mergeCount = equipmentInfo.curAmount / equipmentInfo.maxAmount;
         if (mergeCount >= 1)
         {
@@ -29,7 +29,7 @@ public class MergeItem : MonoBehaviour
     }
     public void BtnTotalMerge()
     {
-
+        AudioManager.instance.SFXPlayer(AudioManager.SFX.Click);
         equipGroupsInfo = mergeObject.GetComponentsInChildren<EquipmentInfo>();
         foreach(EquipmentInfo equipGroupInfo in equipGroupsInfo)
         {

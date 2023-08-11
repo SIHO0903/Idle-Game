@@ -39,6 +39,7 @@ public class Gacha : MonoBehaviour
     }
     public void gachaBtn()
     {
+        AudioManager.instance.SFXPlayer(AudioManager.SFX.Click);
         gaChaingUI.SetActive(false);
 
         if (!isfreeGacha)
@@ -112,6 +113,7 @@ public class Gacha : MonoBehaviour
                 items[i].transform.position = itemGridLayout.transform.position;
 
             }
+            AudioManager.instance.SFXPlayer(AudioManager.SFX.Gacha);
         }
 
     }

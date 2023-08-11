@@ -55,12 +55,13 @@ public class Enemy : MonoBehaviour
             collision.gameObject.SetActive(false);
             health -= collision.GetComponent<Weapon>().damage;
             DamageText.Create(transform.position, collision.GetComponent<Weapon>().damage);
-
+            AudioManager.instance.SFXPlayer(AudioManager.SFX.Attack);
             if (health <= 0)
             {
                 GameManager.instance.killCount++;
                 coinDrop.InvokeRepeatingCoinDrop();
                 gameObject.SetActive(false);
+                AudioManager.instance.SFXPlayer(AudioManager.SFX.EnemyDead);
             }
         }
     }

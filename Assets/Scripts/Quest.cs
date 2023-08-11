@@ -19,6 +19,7 @@ public class Quest : MonoBehaviour
     TextMeshProUGUI questProgressTxt;
     Button btn;
     Outline outline;
+    CoinDrop coinDrop;
     private void Awake()
     {
         questDetails[0] = "장비 소환";
@@ -29,6 +30,7 @@ public class Quest : MonoBehaviour
         questProgressTxt = GetComponentsInChildren<TextMeshProUGUI>()[2];
         btn = GetComponent<Button>();
         outline = GetComponent<Outline>();
+        coinDrop = GetComponent<CoinDrop>();
     }
     private void Update()
     {
@@ -90,10 +92,11 @@ public class Quest : MonoBehaviour
             }
         }
 
-        GameManager.instance.gem += 800;
+        coinDrop.InvokeRepeatingCoinDrop();
     }
     public void BtnGachaCount()
     {
+        AudioManager.instance.SFXPlayer(AudioManager.SFX.Click);
         if (questlvl % 3 == 0)
             curProgress++;
     }

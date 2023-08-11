@@ -19,6 +19,7 @@ public class EquipBtn : MonoBehaviour
 
     public void BtnEquip()
     {
+        AudioManager.instance.SFXPlayer(AudioManager.SFX.Click);
         switch (equipmentInfo.equipType)
         {
             case EquipmentEnum.EquipType.Weapon:

@@ -54,6 +54,12 @@ public class Ability : MonoBehaviour
         {
             btn.interactable = true;
         }
+
+        if (hasMaxLvl && lvl >= maxLvl)
+        {
+            btn.interactable = false;
+            lvlTxt.text = "Lv.MAX";
+        }
     }
 
     // 버튼 꾹눌렀을때 자동으로 빠르게 업그레이드되게 하기
@@ -71,6 +77,7 @@ public class Ability : MonoBehaviour
     }
     void CommonUp()
     {
+        AudioManager.instance.SFXPlayer(AudioManager.SFX.Attack);
         GameManager.instance.coin -= Mathf.RoundToInt(cost);
             
         lvl++;
@@ -92,10 +99,7 @@ public class Ability : MonoBehaviour
         else
             amntTxt.text = totalUpgradeAmnt.ToString();
        
-        if (hasMaxLvl && lvl >= maxLvl)
-        {
-            btn.interactable= false;
-        }
+
 
         isClick = true;
     }

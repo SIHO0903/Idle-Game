@@ -560,4 +560,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minCoin: 2
-  maxCoin: 4
+  maxCoin: 5

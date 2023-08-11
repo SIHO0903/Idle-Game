@@ -33,9 +33,11 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         playerReviveDelay = new WaitForSeconds(3f);
+        AudioManager.instance.BGM();
     }
     private void Update()
     {
+
         stageTxt.text = string.Format($"​<color=#FABA00>{type}</color> " + mainStage + "-" + subStage);
         if (subStage > 10)
         {
@@ -68,5 +70,10 @@ public class GameManager : MonoBehaviour
     {
         coin += 5; //임시코드 : 가중치이용해서 코인수급증가시키기
         coinText.text = coin.ToString();
+    }
+    public void GetGem()
+    {
+        gem += 40; //임시코드 : 가중치이용해서 코인수급증가시키기
+        gemText.text = gem.ToString();
     }
 }

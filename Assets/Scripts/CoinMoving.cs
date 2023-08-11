@@ -23,7 +23,7 @@ public class CoinMoving : MonoBehaviour
             rectEndPosition = GameManager.instance.gemPosition;
 
         endPosition = rectEndPosition.transform;
-        endPosX = Mathf.RoundToInt(endPosition.position.x);
+       endPosX = Mathf.RoundToInt(endPosition.position.x*10)/10;
 
 
     }
@@ -42,11 +42,15 @@ public class CoinMoving : MonoBehaviour
         }
         transform.position = Vector2.Lerp(startPosition.position, endPosition.position, curTime / lerpTime);
 
-        curPosX = Mathf.RoundToInt(transform.position.x);
+        curPosX = Mathf.RoundToInt(transform.position.x*10)/10;
 
         if (endPosX == curPosX)
         {
-            GameManager.instance.GetCoin();
+            if (isCoin)
+                GameManager.instance.GetCoin();
+            else
+                GameManager.instance.GetGem();
+            AudioManager.instance.SFXPlayer(AudioManager.SFX.Coin);
             gameObject.SetActive(false);
         }
     }
