@@ -15,5 +15,5 @@ addressable, objectpool, OnInspectorGUI 등 여러기술을 사용했습니다.
 
 스크립트는 Assets/Scripts폴더안에 있습니다.
 
-https://youtu.be/Tl2U_VxRZGw 
+https://youtu.be/wRsrrZaLnb0
 간단한 게임실행영상입니다.
